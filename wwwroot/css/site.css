@@ -1,5 +1,6 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -19,4 +20,22 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*homepage*/
+.jumbotron {
+    padding: 4rem 2rem;
+    text-align: center;
+    margin-top: 20vh;
+}
+
+/* about-us page */
+.about-us {
+    padding: 30px;
 }

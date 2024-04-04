@@ -3,8 +3,13 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Khumalo Craft</h1>
+        <p class="lead text-muted"> Discover the beauty of handmade treasures from artisans around the globe. At KhumaloCraft Emporium, we celebrate craftsmanship, creativity, and culture.</p>
+        <p>
+            <a asp-page="/AboutUs.cshtml" class="btn btn-primary my-2">About us</a>
+            <a asp-page="/MyWork.cshtml" class="btn btn-secondary my-2">Our work</a>
+        </p>
+    </div>
+</section>
