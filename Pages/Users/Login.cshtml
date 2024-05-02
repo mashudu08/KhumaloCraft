@@ -1,7 +1,11 @@
 ﻿@page
-@model KhumaloCraft.Pages.Users.L
+@model KhumaloCraft.Pages.Users.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
 
-
+<h1>@ViewData["Title"]</h1>
+ 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -18,18 +22,18 @@
                         <form method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
-                                <label asp-for="Users.email" class="control-label">Email</label>
-                                <input asp-for="Users.email" class="form-control" />
-                                <span asp-validation-for="Users.email" class="text-danger"></span>
+                                <label asp-for="Email" class="control-label">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <span asp-validation-summary="ModelOnly" class="text-danger"></span>
                             <div class="form-group">
-                                <label asp-for="Users.password" class="control-label d-flex flex-row align-items-center">Password</label>
-                                <input asp-for="Users.password" class="form-control" type="password" />
-                                <span asp-validation-for="Users.password" class="text-danger"></span>
+                                <label asp-for="Password" class="control-label d-flex flex-row align-items-center">Password</label>
+                                <input asp-for="Password" class="form-control" type="password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="form-group pt-1">
-                                <input type="submit" value="Login" class="btn my-btn" />
+                                <input type="submit" class="btn my-btn" />
                             </div>
                         </form>
                     </div>
@@ -40,4 +44,7 @@
     <div>
         <a asp-page="Index">Back to List</a>
     </div>
+</body>
+
+
 

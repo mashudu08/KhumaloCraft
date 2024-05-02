@@ -16,59 +16,23 @@ namespace KhumaloCraft.Data
 
         public DataManager() { }
 
-        public bool openConnection()
-        {
-            conn.Open();
-            return true;
-        }
+        //public bool openConnection()
+        //{
+        //    conn.Open();
+        //    return true;
+        //}
 
-        //Register user
-        public void RegisterUser(User user)
-        {
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                string sqlString = "INSERT INTO Users (firstnamr, lastname, email, password, role) VALUES (@fname, @lname, @email, @pwd, @role)";
-                using (SqlCommand cmd = new SqlCommand(sqlString, conn))
-                {
-                    // Hash the password
-                    string hashedPassword = HashPassword(user.Password);
-                    cmd.Parameters.Add("@fname", SqlDbType.VarChar, 250).Value = user.Firstname;
-                    cmd.Parameters.Add("@lname", SqlDbType.VarChar, 250).Value = user.Lastname;
-                    cmd.Parameters.Add("@email", SqlDbType.VarChar, 250).Value = user.Email;
-                    cmd.Parameters.Add("@pwd", SqlDbType.VarChar, 250).Value = hashedPassword;
-                    cmd.Parameters.Add("@role", SqlDbType.VarChar, 50).Value = user.Role;
+        //public bool closeConnection()
+        //{
+        //    conn.Close(); return true;
+        //}
 
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw;
-                    }
-                }
-            }
-        }
-
-        // Password hashed
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-            }
-        }
-
-
-        //User Login
         public User LoginUser(string email, string password)
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
-                string sqlString = "SELECT * FROM Users WHERE email=@email";
+                string sqlString = "SELECT * FROM User WHERE email=@email";
                 using (SqlCommand cmd = new SqlCommand(sqlString, conn))
                 {
                     cmd.Parameters.Add("@email", SqlDbType.VarChar, 250).Value = email;
@@ -79,11 +43,8 @@ namespace KhumaloCraft.Data
                         {
                             if (reader.Read())
                             {
-                                // Decrypt the password
-                                string encryptedPasswordFromDb = reader["password"].ToString();
-                                string decryptedPassword = DecryptPassword(encryptedPasswordFromDb);
-
-                                if (decryptedPassword == password)
+                                string dbPassword = reader["password"].ToString();
+                                if (dbPassword == password)
                                 {
                                     return new User
                                     {
@@ -104,25 +65,16 @@ namespace KhumaloCraft.Data
             }
             return null;
         }
-
-        private string DecryptPassword(string encryptedPassword)
-        {
-            // Implement decryption logic using AES or another symmetric encryption algorithm
-            // This is just a placeholder and should be replaced with actual decryption code
-            return encryptedPassword;
-        }
-
-        // Process transaction 
         public bool Cart(Transaction transaction)
         {
             try
             {
-                cmd = new SqlCommand("INSERT INTO Transaction(userId, productId, quantity, totalPrice, orderDate) VALUES (@userid, prodIDd @quant,@category,@desc, @donor)", conn);
-                cmd.Parameters.Add("@userId", System.Data.SqlDbType.Date).Value = transaction.donationDate;
-                cmd.Parameters.Add("@productId", System.Data.SqlDbType.Int).Value = goods.quantity;
-                cmd.Parameters.Add("@category", System.Data.SqlDbType.VarChar, 250).Value = goods.category;
-                cmd.Parameters.Add("@desc", System.Data.SqlDbType.VarChar, 250).Value = goods.description;
-                cmd.Parameters.Add("@donor", System.Data.SqlDbType.VarChar, 250).Value = goods.donor;
+                cmd = new SqlCommand("INSERT INTO Transaction(user, productId, quantity, totalPrice, orderDate) VALUES (@userid, @prodId, @quant,@totprice,@date)", conn);
+                cmd.Parameters.Add("@userId", System.Data.SqlDbType.Int).Value = transaction.user;
+                cmd.Parameters.Add("@productId", System.Data.SqlDbType.Int).Value = transaction.product;
+                cmd.Parameters.Add("@quant", System.Data.SqlDbType.Int).Value = transaction.Quantity;
+                cmd.Parameters.Add("@totprice", System.Data.SqlDbType.Decimal).Value = transaction.TotalPrice;
+                cmd.Parameters.Add("@date", System.Data.SqlDbType.Date).Value = transaction.OrderDate;
 
                 int res = cmd.ExecuteNonQuery();
                 conn.Close();
@@ -137,45 +89,81 @@ namespace KhumaloCraft.Data
             }
 
         }
-        public int TransactionId { get; set; }
-        [ForeignKey("UserId")]
-        public User user { get; set; }
-        [ForeignKey("ProductId")]
-        public Product product { get; set; }
-        [Required]
-        public int Quantity { get; set; }
-        [Required]
-        public decimal TotalPrice { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime OrderDate { get; set; }
+
 
         // view purchase history 
-
-
-
-        // Create Product
-        public bool CreateProduct(Product product)
+        public List<Transaction> GetUserTransactionHistory(int userId)
         {
+            List<Transaction> transactions = new List<Transaction>();
+
             try
             {
-                cmd = new SqlCommand("INSERT INTO Product(name, price, category, availability) VALUES (@name, @price, @category, @availability)", conn);
-                cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar, 250).Value = product.Name;
-                cmd.Parameters.Add("@price", System.Data.SqlDbType.VarChar, 250).Value = product.Price;
-                cmd.Parameters.Add("@category", System.Data.SqlDbType.VarChar, 250).Value = product.Category;
-                cmd.Parameters.Add("@availability", System.Data.SqlDbType.VarChar, 250).Value = product.Availability;
+                cmd = new SqlCommand("SELECT * FROM TransactionHistory WHERE UserID = @userId", conn);
+                cmd.Parameters.Add("@userId", System.Data.SqlDbType.Int).Value = userId;
 
-                int res = cmd.ExecuteNonQuery();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Transaction transaction = new Transaction
+                        {
+                            TransactionId = (int)reader["TransactionId"],
+                            user = new User { UserId = (int)reader["UserID"] },
+                            product = new Product { ProductId = (int)reader["ProductID"] }, 
+                            Quantity = (int)reader["Quantity"],
+                            TotalPrice = (decimal)reader["TotalPrice"],
+                            OrderDate = (DateTime)reader["OrderDate"]
+                        };
+                        transactions.Add(transaction);
+                    }
+                }
+
                 conn.Close();
-
-                return res == 1 ? true : false;
             }
             catch (Exception)
             {
                 conn.Close();
-
                 throw;
             }
 
+            return transactions;
         }
+
+        // Create Product
+        public List<Product> GetAllProducts()
+        {
+            List<Product> products = new List<Product>();
+
+            try
+            {
+                cmd = new SqlCommand("SELECT * FROM Product", conn);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Product product = new Product
+                        {
+                            ProductId = (int)reader["ProductId"],
+                            Name = reader["Name"].ToString(),
+                            Price = (int)reader["Price"],
+                            Category = reader["Category"].ToString(),
+                            Availability = reader["Availability"].ToString()
+                        };
+                        products.Add(product);
+                    }
+                }
+
+                conn.Close();
+            }
+            catch (Exception)
+            {
+                conn.Close();
+                throw;
+            }
+
+            return products;
+        }
+
     }
 }
