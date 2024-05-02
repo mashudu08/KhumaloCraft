@@ -9,7 +9,7 @@ namespace KhumaloCraft.Model
         [Required]
         public string Name { get; set; }
         [Required]
-        public string Price { get; set; }
+        public int Price { get; set; }
         [Required]
         public string Category { get; set; }
         [Required]

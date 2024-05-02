@@ -1,0 +1,43 @@
+﻿@page
+@model KhumaloCraft.Pages.Users.L
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="pt-5">
+        <div class="container">
+            <h2 class="text-center color: #6932D4 !important;">Login</h2>
+            <div class="row">
+                <div class="col-md-5 mx-auto">
+                    <div class="card card-body">
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Users.email" class="control-label">Email</label>
+                                <input asp-for="Users.email" class="form-control" />
+                                <span asp-validation-for="Users.email" class="text-danger"></span>
+                            </div>
+                            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="Users.password" class="control-label d-flex flex-row align-items-center">Password</label>
+                                <input asp-for="Users.password" class="form-control" type="password" />
+                                <span asp-validation-for="Users.password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group pt-1">
+                                <input type="submit" value="Login" class="btn my-btn" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a asp-page="Index">Back to List</a>
+    </div>
+
