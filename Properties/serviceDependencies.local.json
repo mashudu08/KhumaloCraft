@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/st10115884-sql-server/databases/KhumaloCraft",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:UserContext",
+      "dynamicId": null
+    }
+  }
+}

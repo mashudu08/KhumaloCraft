@@ -3,9 +3,11 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<div class="homepage">
 <section class="jumbotron text-center">
     <div class="container">
-        <h1 class="jumbotron-heading">Khumalo Craft</h1>
+        @* <h1 class="jumbotron-heading">Khumalo Craft</h1> *@
+            <h1 class="display-5 fw-bold text-body-emphasis">Khumalo Craft</h1>
         <p class="lead text-muted"> Discover the beauty of handmade treasures from artisans around the globe. At KhumaloCraft Emporium, we celebrate craftsmanship, creativity, and culture.</p>
         <p>
             <a asp-page="/AboutUs" class="btn btn-primary my-2">About us</a>
@@ -13,3 +15,16 @@
         </p>
     </div>
 </section>
+</div>
+
+@* <div class="px-4 py-5 my-5 text-center">
+    @* <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> 
+    <h1 class="display-5 fw-bold text-body-emphasis">Khumalo Craft</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4"> Discover the beauty of handmade treasures from artisans around the globe. At KhumaloCraft Emporium, we celebrate craftsmanship, creativity, and culture.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">About us</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Our work</button>
+        </div>
+    </div>
+</div> *@

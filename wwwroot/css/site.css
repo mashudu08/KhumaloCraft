@@ -33,9 +33,28 @@ body {
     padding: 4rem 2rem;
     text-align: center;
     margin-top: 20vh;
+    color: white;
 }
 
 /* about-us page */
 .about-us {
     padding: 30px;
+}
+
+.jumbotron {
+     /* Text color for better readability */
+     color: #000;
+}
+
+/*.homepage {
+    background-image: url("../images/furniture1.jpeg");
+    background-size: cover;
+}*/
+
+.contact-form {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
 }
