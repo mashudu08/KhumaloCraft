@@ -16,16 +16,16 @@ namespace KhumaloCraft.Data
 
         public DataManager() { }
 
-        //public bool openConnection()
-        //{
-        //    conn.Open();
-        //    return true;
-        //}
+        public bool openConnection()
+        {
+            conn.Open();
+            return true;
+        }
 
-        //public bool closeConnection()
-        //{
-        //    conn.Close(); return true;
-        //}
+        public bool closeConnection()
+        {
+            conn.Close(); return true;
+        }
 
         public User LoginUser(string email, string password)
         {
@@ -129,41 +129,41 @@ namespace KhumaloCraft.Data
             return transactions;
         }
 
-        // Create Product
-        public List<Product> GetAllProducts()
-        {
-            List<Product> products = new List<Product>();
+        //// Create Product
+        //public List<Product> GetAllProducts()
+        //{
+        //    List<Product> products = new List<Product>();
 
-            try
-            {
-                cmd = new SqlCommand("SELECT * FROM Product", conn);
+        //    try
+        //    {
+        //        cmd = new SqlCommand("SELECT * FROM Product", conn);
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Product product = new Product
-                        {
-                            ProductId = (int)reader["ProductId"],
-                            Name = reader["Name"].ToString(),
-                            Price = (int)reader["Price"],
-                            Category = reader["Category"].ToString(),
-                            Availability = reader["Availability"].ToString()
-                        };
-                        products.Add(product);
-                    }
-                }
+        //        using (SqlDataReader reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                Product product = new Product
+        //                {
+        //                    ProductId = (int)reader["ProductId"],
+        //                    Name = reader["Name"].ToString(),
+        //                    Price = (int)reader["Price"],
+        //                    Category = reader["Category"].ToString(),
+        //                    Availability = reader["Availability"].ToString()
+        //                };
+        //                products.Add(product);
+        //            }
+        //        }
 
-                conn.Close();
-            }
-            catch (Exception)
-            {
-                conn.Close();
-                throw;
-            }
+        //        conn.Close();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        conn.Close();
+        //        throw;
+        //    }
 
-            return products;
-        }
+        //    return products;
+        //}
 
     }
 }
