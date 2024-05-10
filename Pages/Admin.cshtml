@@ -1,0 +1,39 @@
+@page
+@model KhumaloCraft.Pages.Admin
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add custom styles here if needed */
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="float-left">Products</h1>
+        <a href="/CreateProduct" class="btn btn-primary float-right">Create Item</a>
+        <div class="clearfix"></div>
+        <div class="row mt-3">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="@product.Image" alt="@product.Name">
+                        <div class="card-body">
+                            <h4 class="card-title">@product.Name</h4>
+                            <p class="card-text">@product.Category</p>
+                            <h5>R @product.Price.ToString("0.00")</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

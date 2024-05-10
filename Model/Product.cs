@@ -14,5 +14,7 @@ namespace KhumaloCraft.Model
         public string Category { get; set; }
         [Required]
         public string Availability { get; set; }
+        [Required]
+        public string Image { get; set; }
     }
 }

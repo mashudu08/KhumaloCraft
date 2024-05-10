@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using KhumaloCraft.enums;
 
 namespace KhumaloCraft.Model
 {
+    [Table("User")]
     public class User
     {
         [Key]
@@ -15,6 +18,6 @@ namespace KhumaloCraft.Model
         [Required]
         public string Password { get; set; }
         [Required]
-        public string Role { get; set; }
+        public Role Role { get; set; }
     }
 }
