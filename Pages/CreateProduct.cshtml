@@ -1,0 +1,43 @@
+@page
+@model KhumaloCraft.Pages.CreateProduct
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Item</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Add Item</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label for="Name">Item Name:</label>
+            <input type="text" id="Name" name="Name" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="description">Category:</label>
+            <textarea id="description" name="Category" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="Price" step="0.01" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="ImageFile" class="form-control-file"/>
+        </div>
+        <div class="form-group">
+            <label for="availability">Availability:</label>
+            <input type="text" id="availability" name="Availability" step="0.01" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Item</button>
+    </form>
+</div>
+</body>
+</html>

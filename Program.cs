@@ -8,7 +8,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddDbContext<DataAccess>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("UserContext")));
+            options.UseSqlServer("Server=tcp:st10115884-sql-server.database.windows.net,1433;Initial Catalog=KhumaloCraft;Persist Security Info=False;User ID=st10115884;Password=Mashudu@1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
 
         //builder.Services.AddDefaultIdentity<IdentityUser>(options => 
         //options.SignIn.RequireConfirmedAccount = true)
@@ -18,6 +18,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddRazorPages();
+        builder.Services.AddSession();
 
         var app = builder.Build();
 
@@ -37,6 +38,8 @@ public class Program
         app.UseAuthorization();
 
         app.MapRazorPages();
+
+        app.UseSession();
 
         // add scope for roles..
         //using (var scope = app.Services.CreateScope())
