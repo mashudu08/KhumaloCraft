@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="KhumaloCraft@st10115884-sql-server.database.windows.net" uuid="ece133a1-e013-45a6-b8b0-e53e102a44e2">
+      <driver-ref>azure.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://st10115884-sql-server.database.windows.net:1433;databaseName=KhumaloCraft;encrypt=True;password=Mashudu@1;trustServerCertificate=False;userName=st10115884;</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>

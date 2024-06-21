@@ -33,7 +33,7 @@
         </div> 
 
  *@
- 
+
 @page
 @model KhumaloCraft.Pages.MyWorkModel
 @{
@@ -43,27 +43,31 @@
 
 <p>Explore the exquisite handcrafted work of artisans from around the world.</p>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h3>Ceramics</h3>
-            <p>Each piece of our ceramic collection is a work of art, meticulously crafted by skilled artisans. From vases to bowls to cups, our ceramics are sure to add beauty and elegance to your home.</p>
-            <img src="/images/ceramic1.jpg" height="300px" class="rounded p-3" alt="ceramic vase">
-            <img src="/images/ceramic2.jpg" height="300px" class="rounded p-3" alt="ceramic bowls">
-            <img src="/images/ceramic3.jpg" height="300px" class="rounded p-3" alt="ceramic cups">
+<div class="container mt-5">
+
+    <form method="get" asp-page="./MyWork" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="Query" class="form-control" placeholder="Search products by name..." value="@Model.Query" />
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h3>Accessories</h3>
-            <p>Our accessories are designed to complement your style and enhance your look. From handcrafted jewelry to unique bags and scarves, each piece is a testament to the artisan's skill and creativity.</p>
-            <img src="/images/accessories1.jpg" height="300px" class="rounded p-3" alt="accessory 1">
-            <img src="/images/accessories2.jpg" height="300px" class="rounded p-3" alt="accessory 2">
-            <img src="/images/accessories3.jpg" height="300px" class="rounded p-3" alt="accessory 3">
-            <img src="/images/accessories4.jpg" height="300px" class="rounded p-3" alt="accessory 4">
-        </div>
-        <div class="col-md-4">
-            <h3>Furniture</h3>
-            <p>Our furniture collection combines beauty and functionality, offering you pieces that are both stylish and practical. Each piece is crafted with care and attention to detail, ensuring quality and durability.</p>
-            <img src="/images/furniture1.jpg" height="300px" class="rounded p-3" alt="furniture 1">
-        </div>
+    </form>
+    <div class="clearfix"></div>
+    <div class="row mt-3">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img class="card-img-top" style="height: 380px !important" src="@product.Image" alt="@product.Name">
+                    <div class="card-body">
+                        <h4 class="card-title">@product.Name</h4>
+                        <p class="card-text">@product.Category</p>
+                        <h5>R @product.Price.ToString("0.00")</h5>
+                        <a asp-page="/ViewItem" asp-route-id="@product.ProductId" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>

@@ -1,4 +1,60 @@
 ﻿@page
-@model KhumaloCraft.Pages.CartModel
+@model KhumaloCraft.Pages.CartListModel
 @{
+    ViewData["Title"] = "Cart Items";
 }
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Availability</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.Product.Image" alt="@item.Product.Name" style="width: 50px; height: auto;"/>
+                            @item.Product.Name
+                        </td>
+                        <td>R @item.Product.Price.ToString("0.00")</td>
+                        <td>@item.Product.Category</td>
+                        <td>@item.Product.Availability</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        @if (Model.CartCount > 0)
+        {
+            <div class="row mt-4">
+                <div class="col-12 text-right">
+                    <form method="post" id="checkoutForm" onsubmit="confirmOrder()">
+                        <input type="hidden" name=“UserId” />
+                        <button type="submit" asp-page-handler="ClearCart" class="btn btn-primary">Checkout</button>
+                    </form>
+                </div>
+            </div>
+            
+            @section Scripts{
+                <script>
+                    function confirmOrder(){
+                    if (confirm('Order confirmed')){
+                    return true;
+                    }
+                    return false;
+                    }
+                </script>
+            }
+        }
+    </div>
+</div>
