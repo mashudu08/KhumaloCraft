@@ -5,7 +5,10 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
+<head>
+    <!-- Other head elements -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
@@ -38,23 +41,39 @@
         {
             <div class="row mt-4">
                 <div class="col-12 text-right">
-                    <form method="post" id="checkoutForm" onsubmit="confirmOrder()">
+                    <form method="post" id="checkoutForm" onsubmit="confirmOrder(event)">
                         <input type="hidden" name=“UserId” />
-                        <button type="submit" asp-page-handler="ClearCart" class="btn btn-primary">Checkout</button>
+                        <button type="submit" asp-page-handler="OnPostClearCart" class="btn btn-primary">Checkout</button>
                     </form>
                 </div>
             </div>
-            
-            @section Scripts{
-                <script>
-                    function confirmOrder(){
-                    if (confirm('Order confirmed')){
-                    return true;
-                    }
-                    return false;
-                    }
-                </script>
-            }
         }
     </div>
 </div>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+                    function confirmOrder(event) {
+                        event.preventDefault(); // Prevent form submission
+                        Swal.fire({
+                            title: 'Order Confirmation',
+                            text: "Are you sure you want to confirm this order?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, confirm it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire(
+                                    'Confirmed!',
+                                    'Your order has been placed.',
+                                    'success'
+                                ).then(() => {
+                                    document.getElementById('checkoutForm').submit(); // Submit the form
+                                });
+                            }
+                        });
+                    }
+                </script>
+}
